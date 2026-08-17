@@ -19,7 +19,7 @@ const OFFERS = [
     bg: "bg-[#d9b26b]",
     fg: "text-background",
     href: "/hizmetler",
-    image: "/images/offer-ajans.jpg",
+    image: "https://raw.githubusercontent.com/systemonster/lovefengis-clone/master/public/images/offer-ajans.jpg",
   },
   {
     tag: "SaaS",
@@ -29,7 +29,7 @@ const OFFERS = [
     bg: "bg-orange",
     fg: "text-white",
     href: "/suite",
-    image: "/images/offer-suite.jpg",
+    image: "https://raw.githubusercontent.com/systemonster/lovefengis-clone/master/public/images/offer-suite.jpg",
   },
   {
     tag: "Ücretsiz",
@@ -39,7 +39,7 @@ const OFFERS = [
     bg: "bg-red",
     fg: "text-white",
     href: "/araclar",
-    image: "/images/offer-araclar.jpg",
+    image: "https://raw.githubusercontent.com/systemonster/lovefengis-clone/master/public/images/offer-araclar.jpg",
   },
 ];
 

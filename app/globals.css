@@ -101,7 +101,7 @@
 
 @font-face {
   font-family: "PeperoncinoSansCustom";
-  src: url("/fonts/PeperoncinoSans-Regular.woff") format("woff");
+  src: url("https://raw.githubusercontent.com/systemonster/lovefengis-clone/master/public/fonts/PeperoncinoSans-Regular.woff") format("woff");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
