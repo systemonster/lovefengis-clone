@@ -1,26 +1,151 @@
 @import "tailwindcss";
 
+/*
+  Design tokens ported 1:1 from buckssauce.com (getComputedStyle extraction,
+  see docs/research/buckssauce.com-reference/styles.json → cssAllCustomProperties).
+  Colors/fonts/type-scale/radii/transitions kept exact; content + brand adapted
+  for lovefengis.
+*/
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Brand palette — exact hex values from source */
+  --color-background: #100b06;
+  --color-background-lighter: #272119;
+  --color-foreground: #f5e4c7;
+  --color-gold: #be8d3f;
+  --color-orange: #f15726;
+  --color-red: #da1f27;
+  --color-brown: #593e2c;
+  --color-menu: #322c23;
+  --color-white: #fff;
+  --color-black: #000;
+
+  --background: var(--color-background);
+  --foreground: var(--color-foreground);
+
+  /* Fonts */
+  --font-sans: "Inter Tight", "Inter Tight Fallback", sans-serif;
+  --font-display: "PeperoncinoSansCustom", "PeperoncinoSansCustom Fallback", serif;
+
+  /* Radii */
+  --radius-sm: 0.25rem;
+  --radius-lg: 0.5rem;
+  --radius-xl: 10px;
+  --radius-3xl: 1.5rem;
+
+  /* Motion */
+  --transition-duration: 0.15s;
+  --transition-timing: cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* Layout grid */
+  --grid-col: calc(100vw / 12);
+  --grid-gap: 1.25rem;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-background: var(--color-background);
+  --color-background-lighter: var(--color-background-lighter);
+  --color-foreground: var(--color-foreground);
+  --color-gold: var(--color-gold);
+  --color-orange: var(--color-orange);
+  --color-red: var(--color-red);
+  --color-brown: var(--color-brown);
+  --color-menu: var(--color-menu);
+  --font-sans: var(--font-sans);
+  --font-display: var(--font-display);
+
+  /* Fluid type scale — clamp(min, preferred, max) + paired line-heights,
+     exact from source (registered under Tailwind v4's --text-* namespace
+     so text-xl, text-2xl, text-sm, etc. utilities resolve to these). */
+  --text-tiny: clamp(0.5333rem, 0rem + 0.8333vw, 1rem);
+  --text-tiny--line-height: 1.5;
+  --text-small: clamp(0.6222rem, 0rem + 0.9722vw, 1.1667rem);
+  --text-small--line-height: 1.5;
+  --text-sm: 0.875rem;
+  --text-sm--line-height: calc(1.25 / 0.875);
+  --text-base: 1rem;
+  --text-base--line-height: 1.5;
+  --text-xl: clamp(0.8889rem, 0rem + 1.3889vw, 1.6667rem);
+  --text-xl--line-height: 1.2;
+  --text-2xl: clamp(1.0667rem, 0rem + 1.6667vw, 2rem);
+  --text-2xl--line-height: 1.25;
+  --text-3xl: clamp(1.2444rem, 0rem + 1.9444vw, 2.3333rem);
+  --text-3xl--line-height: 1.14;
+  --text-26: clamp(1.1556rem, 1.8056vw, 2.1667rem);
+  --text-26--line-height: 1.2;
+  --text-30: clamp(1.3333rem, 0rem + 2.0833vw, 2.5rem);
+  --text-30--line-height: 1.1;
+  --text-36: clamp(1.6rem, 0rem + 2.5vw, 3rem);
+  --text-36--line-height: 1;
+  --text-40: clamp(1.7778rem, 0rem + 2.7778vw, 3.3333rem);
+  --text-40--line-height: 1.1;
+  --text-44: clamp(1.9556rem, 3.0556vw, 3.6667rem);
+  --text-44--line-height: 1.1;
+  --text-50: clamp(2.2222rem, 0rem + 3.4722vw, 4.1667rem);
+  --text-50--line-height: 0.88;
+  --text-60: clamp(2.6667rem, 0rem + 4.1667vw, 5rem);
+  --text-60--line-height: 1;
+  --text-80: clamp(3.5556rem, 0rem + 5.5556vw, 6.6667rem);
+  --text-80--line-height: 1;
+  --text-100: clamp(4.4444rem, 0rem + 6.9444vw, 8.3333rem);
+  --text-100--line-height: 0.88;
+  --text-140: clamp(6.2222rem, 0rem + 9.7222vw, 11.6667rem);
+  --text-140--line-height: 0.8;
+  --text-180: clamp(8rem, 0rem + 12.5vw, 15rem);
+  --text-180--line-height: 1;
+  --text-240: clamp(10.6667rem, 0rem + 16.6667vw, 20rem);
+  --text-240--line-height: 0.833;
+  --text-300: clamp(13.3333rem, 0rem + 20.8333vw, 25rem);
+  --text-300--line-height: 0.8;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+@font-face {
+  font-family: "PeperoncinoSansCustom";
+  src: url("/fonts/PeperoncinoSans-Regular.woff") format("woff");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans);
+}
+
+/* Default browser focus ring (near-black) is invisible on the dark theme —
+   replace with the brand accent so keyboard navigation stays visible. */
+:focus-visible {
+  outline: 2px solid var(--color-orange);
+  outline-offset: 2px;
+}
+
+/* Keyframes ported from source (bucks-loading-dot renamed, spin kept) */
+@keyframes fengis-loading-dot {
+  0%,
+  100% {
+    opacity: 0.45;
+    transform: translateY(0px) scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: translateY(-0.3rem) scale(1.08);
+  }
+}
+
+@keyframes spin {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes nav-intro {
+  from {
+    opacity: 0;
+    transform: translateY(-3rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

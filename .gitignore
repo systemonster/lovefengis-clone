@@ -39,3 +39,6 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# raw reference dump (huge binary assets, local reference only)
+/docs/research/buckssauce.com-reference
